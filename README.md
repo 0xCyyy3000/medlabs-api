@@ -4,7 +4,7 @@ This is the Med Labs API project
 
 ## System Requirements
 
--   PHP >= 8.1
+-   PHP > 8.1
 -   OpenSSL PHP Extension
 -   PDO PHP Extension
 -   Mbstring PHP Extension
@@ -58,7 +58,7 @@ php artisan key:generate
 
 ```
 php artisan vendor:publish --provider "L5Swagger\L5SwaggerServiceProvider"
-php artisan lg-swagger:generate
+php artisan l5-swagger:generate
 ```
 
 Check docs in `/api/documentation`
