@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Faker\Provider\es_ES\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,11 +25,18 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'firstname'          => fake()->firstName(),
+            'lastname'           => fake()->lastName(),
+            'email'              => fake()->unique()->safeEmail(),
+            'email_verified_at'  => now(),
+            'password'           => Hash::make('password'),
+            'verification_token' => Str::random(10),
+            'reset_token'        => Str::random(10),
+            'reset_token'        => Str::random(10),
+            'phone'              => fake()->phoneNumber(),
+            'country'            => Address::country(),
+            'state'              => Address::state(),
+            'city'               => Address::citySuffix()
         ];
     }
 

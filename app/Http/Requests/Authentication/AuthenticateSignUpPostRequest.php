@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Authentication;
 
 use Illuminate\Foundation\Http\FormRequest;
 use OpenApi\Attributes as OA;
 
-class UserPostRequest extends FormRequest
+class AuthenticateSignUpPostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,12 +16,15 @@ class UserPostRequest extends FormRequest
     }
 
     #[OA\Schema(
-        schema: 'UserPostRequest',
+        schema: 'SignUp',
         required: [
             'firstname',
             'lastname',
             'phone',
             'email',
+            'country',
+            'state',
+            'city',
             'password',
             'password_confirmation',
         ],
@@ -82,13 +85,13 @@ class UserPostRequest extends FormRequest
             new OA\Property(
                 property: 'owner_id',
                 type: 'integer',
-                example: '1',
+                example: null,
                 description: 'The owner (user_id) of this account'
             ),
             new OA\Property(
                 property: 'role',
                 type: 'integer',
-                example: '1',
+                example: 1,
                 description: 'Role'
             ),
         ]

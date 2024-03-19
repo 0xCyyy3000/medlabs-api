@@ -61,7 +61,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->repository->all();
+        return response()->json([
+            'users' => $this->repository->all(),
+            'meta'  => []
+        ], Response::HTTP_OK);
     }
 
     #[OA\Post(
@@ -112,7 +115,7 @@ class UserController extends Controller
     public function store(UserPostRequest $request)
     {
         try {
-            return $this->repository->create($request->all());
+            return response()->json($this->repository->create($request->all()), Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             throw $th;
         }

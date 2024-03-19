@@ -32,6 +32,11 @@ class UserRepositoryImplement extends Eloquent implements UserRepository
         return $this->model->findOrFail($id);
     }
 
+    public function findBy($column, $value)
+    {
+        return $this->model->where($column, $value)->firstOrFail();
+    }
+
     public function update($id, array $data)
     {
         if ($user = $this->find($id)) {

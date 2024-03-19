@@ -12,6 +12,158 @@
         }
     ],
     "paths": {
+        "/api/v1/authenticate/email": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Authenticate email",
+                "operationId": "cbd0298b25e3fa50f6685b3206afec07",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignIn"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthenticated"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UnprocessableEntity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableEntity"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/sign-up": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register to the app",
+                "operationId": "2e697febeaf8b4b5af155b47840f7f85",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignUp"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Unauthenticated"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UnprocessableEntity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableEntity"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/v1/users": {
             "get": {
                 "tags": [
@@ -404,6 +556,95 @@
                 },
                 "type": "object"
             },
+            "SignIn": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "Unique email",
+                        "type": "string",
+                        "format": "email",
+                        "example": "john@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "123456"
+                    }
+                },
+                "type": "object"
+            },
+            "SignUp": {
+                "required": [
+                    "firstname",
+                    "lastname",
+                    "phone",
+                    "email",
+                    "country",
+                    "state",
+                    "city",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "firstname": {
+                        "description": "First name of user",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "lastname": {
+                        "description": "Last name of user",
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "phone": {
+                        "description": "Last name of user",
+                        "type": "string",
+                        "example": "1-984-993-4778"
+                    },
+                    "country": {
+                        "description": "Last name of user",
+                        "type": "string",
+                        "example": "Philippines"
+                    },
+                    "state": {
+                        "description": "State or province",
+                        "type": "string",
+                        "example": "Leyte"
+                    },
+                    "city": {
+                        "description": "City or municipality",
+                        "type": "string",
+                        "example": "Tacloban"
+                    },
+                    "email": {
+                        "description": "Unique email",
+                        "type": "string",
+                        "format": "email",
+                        "example": "john@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "123456"
+                    },
+                    "password_confirmation": {
+                        "type": "string",
+                        "example": "123456"
+                    },
+                    "owner_id": {
+                        "description": "The owner (user_id) of this account",
+                        "type": "integer",
+                        "example": null
+                    },
+                    "role": {
+                        "description": "Role",
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
             "UserPatchRequest": {
                 "required": [],
                 "properties": {
@@ -430,18 +671,46 @@
             },
             "UserPostRequest": {
                 "required": [
-                    "name",
+                    "firstname",
+                    "lastname",
+                    "phone",
                     "email",
                     "password",
                     "password_confirmation"
                 ],
                 "properties": {
-                    "name": {
-                        "description": "Get the validation rules that apply to the request.",
+                    "firstname": {
+                        "description": "First name of user",
                         "type": "string",
-                        "example": "John Doe"
+                        "example": "John"
+                    },
+                    "lastname": {
+                        "description": "Last name of user",
+                        "type": "string",
+                        "example": "Doe"
+                    },
+                    "phone": {
+                        "description": "Last name of user",
+                        "type": "string",
+                        "example": "1-984-993-4778"
+                    },
+                    "country": {
+                        "description": "Last name of user",
+                        "type": "string",
+                        "example": "Philippines"
+                    },
+                    "state": {
+                        "description": "State or province",
+                        "type": "string",
+                        "example": "Leyte"
+                    },
+                    "city": {
+                        "description": "City or municipality",
+                        "type": "string",
+                        "example": "Tacloban"
                     },
                     "email": {
+                        "description": "Unique email",
                         "type": "string",
                         "format": "email",
                         "example": "john@example.com"
@@ -453,6 +722,16 @@
                     "password_confirmation": {
                         "type": "string",
                         "example": "123456"
+                    },
+                    "owner_id": {
+                        "description": "The owner (user_id) of this account",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "role": {
+                        "description": "Role",
+                        "type": "integer",
+                        "example": "1"
                     }
                 },
                 "type": "object"
@@ -467,13 +746,45 @@
                                     "type": "integer",
                                     "example": 1
                                 },
-                                "name": {
+                                "firstname": {
                                     "type": "string",
-                                    "example": "John Doe"
+                                    "example": "John"
+                                },
+                                "lastname": {
+                                    "type": "string",
+                                    "example": "Doe"
                                 },
                                 "email": {
                                     "type": "string",
                                     "example": "john@example.com"
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "example": "ACTIVE"
+                                },
+                                "role": {
+                                    "type": "string",
+                                    "example": "TENANT"
+                                },
+                                "owner_id": {
+                                    "type": "integer",
+                                    "example": null
+                                },
+                                "phone": {
+                                    "type": "string",
+                                    "example": "123-456-6789"
+                                },
+                                "country": {
+                                    "type": "string",
+                                    "example": "Philippines"
+                                },
+                                "state": {
+                                    "type": "string",
+                                    "example": "Leyte"
+                                },
+                                "city": {
+                                    "type": "string",
+                                    "example": "Tacloban City"
                                 },
                                 "created_at": {
                                     "type": "string",
@@ -517,13 +828,45 @@
                         "type": "integer",
                         "example": 1
                     },
-                    "name": {
+                    "firstname": {
                         "type": "string",
-                        "example": "John Doe"
+                        "example": "John"
+                    },
+                    "lastname": {
+                        "type": "string",
+                        "example": "Doe"
                     },
                     "email": {
                         "type": "string",
                         "example": "john@example.com"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "ACTIVE"
+                    },
+                    "role": {
+                        "type": "string",
+                        "example": "TENANT"
+                    },
+                    "owner_id": {
+                        "type": "integer",
+                        "example": null
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "123-456-6789"
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "Philippines"
+                    },
+                    "state": {
+                        "type": "string",
+                        "example": "Leyte"
+                    },
+                    "city": {
+                        "type": "string",
+                        "example": "Tacloban City"
                     },
                     "created_at": {
                         "type": "string",

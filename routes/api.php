@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\AuthenticationController;
 use App\Http\Controllers\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,11 @@ Route::group(env('APP_ENV') === 'local' ? [] : ['middleware' => 'client'], funct
         ];
     });
 
+
     Route::group(['prefix' => '/v1', 'namespace' => '\App\Http\Controllers\V1'], function () {
+        Route::post('/authenticate/email', [AuthenticationController::class, 'authenticateEmail']);
+        Route::post('/sign-up', [AuthenticationController::class, 'signUp']);
+
         Route::prefix('/users')->group(function () {
             Route::get('/', [UserController::class, 'index']);
             Route::post('/', [UserController::class, 'store']);
